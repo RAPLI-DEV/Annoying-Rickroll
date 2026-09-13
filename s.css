@@ -1,0 +1,15 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+#RickRoll {
+	position: fixed;
+	right: 20%;
+	height: 100%;
+}
