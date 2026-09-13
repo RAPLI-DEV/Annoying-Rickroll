@@ -7,14 +7,14 @@ const { minify: minifyHTML } = require('html-minifier-terser');
 
 const ROOT = __dirname;
 const DIST = path.join(ROOT, 'dist');
-const ASSETS = ['RickRoll.webm', 'sus.mp3', 'qrcode.webp'];
+const ASSETS = ['./public/RickRoll.webm', './public/sus.mp3', './public/qrcode.webp'];
 
 if (!fs.existsSync(DIST)) fs.mkdirSync(DIST, { recursive: true });
 
 (async () => {
-	const js = fs.readFileSync(path.join(ROOT, 'i.js'), 'utf8');
-	const css = fs.readFileSync(path.join(ROOT, 's.css'), 'utf8');
-	const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+	const js = fs.readFileSync(path.join(ROOT, './public/i.js'), 'utf8');
+	const css = fs.readFileSync(path.join(ROOT, './public/s.css'), 'utf8');
+	const html = fs.readFileSync(path.join(ROOT, './public/index.html'), 'utf8');
 
 	const jsMin = await minifyJS(js, {
 		compress: { drop_console: true, drop_debugger: true, passes: 3 },
@@ -57,9 +57,10 @@ if (!fs.existsSync(DIST)) fs.mkdirSync(DIST, { recursive: true });
 
 	for (const a of ASSETS) {
 		const src = path.join(ROOT, a);
+		const dest = path.join(DIST, path.basename(a));
 		if (fs.existsSync(src)) {
-			fs.copyFileSync(src, path.join(DIST, a));
-			console.log('copied:', a);
+			fs.copyFileSync(src, dest);
+			console.log('copied:', path.basename(a));
 		} else {
 			console.warn('missing:', a);
 		}
